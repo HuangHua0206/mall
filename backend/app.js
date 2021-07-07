@@ -6,7 +6,7 @@ import session from 'express-session';
 import connectMongo from 'connect-mongo';
 import history from 'connect-history-api-fallback';
 import chalk from 'chalk';
-
+import router from '@root/routes/index.js';
 // 路由
 const app = express();
 
@@ -25,12 +25,7 @@ app.all('*', (req, res, next) => {
     next();
 	}
 });
-app.use('/',(req,res) => { 
-  res.send({
-						status: 1,
-						success: 'hello node'
-					})
-})
+ 
 const MongoStore = connectMongo(session);
 
 
@@ -45,7 +40,7 @@ app.use(session({
   	url: config.url
 	})
 }))
-
+router(app);
 app.use(history());
 
 // 静态资源

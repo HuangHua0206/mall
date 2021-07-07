@@ -10,7 +10,11 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/HuangHua0206/mall.git"
-  }, 
+  },  
+  "_moduleAliases": {
+    "@root": "."
+  },
+  "_moduleDirectories": ["node_modules_custom"],
   "dependencies": {
     "babel": "^6.23.0",
     "babel-cli": "^6.24.1",
@@ -33,6 +37,7 @@
     "formidable": "^1.1.1",
     "gm": "^1.23.0",
     "marked": "^0.3.6",
+    "module-alias": "^2.2.2",
     "moment": "^2.18.1",
     "mongodb": "^2.2.25",
     "mongoose": "^4.9.3",
