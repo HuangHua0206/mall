@@ -44,7 +44,7 @@ class Admin extends AddressComponent {
           } else {
             res.send({
               status: 1, 
-              message: '登录成功',
+              message: '登录成功', 
             })
           }
         }
