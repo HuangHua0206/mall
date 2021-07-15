@@ -1,3 +1,12 @@
+/*
+ * @Filename: Do not edit
+ * @Autor: huanghua
+ * @Date: 2021-07-07 14:52:51
+ * @LastEditTime: 2021-07-15 15:20:13
+ * @LastEditors: huanghua
+ * @Description: 
+ * @Copyright: Copyright(c) 2019 CMIM Network Co.,Ltd. All Rights Reserved
+ */
 'use strict';
 
 import AdminModel from '@root/models/admin/admin';
@@ -5,6 +14,7 @@ import AddressComponent from '@root/common/address';
 import formidable from 'formidable'
 import { formError, catchError } from '@root/utils'
 import dtime from 'time-formater'
+import e from 'express';
 class Admin extends AddressComponent {
   constructor() {
     super() 
@@ -79,6 +89,34 @@ class Admin extends AddressComponent {
       status:1,
       message: '注册管理员成功'
     })
+  }
+  async getAdminInfo(req, res, next) {
+    const admin_id = req.session.admin_id
+    if (!admin_id || !Number(admin_id)) {
+      res.send({
+        status: 0,
+        type: 'ERROR_SESSION',
+        message: '获取管理员信息失败'
+      })
+      return
+    }
+    try {
+      const info = await AdminModel.findOne({id: admin_id}, '-_id -__v -password')
+      if (!info) {
+        throw new Error('未找到当前管理员')
+      } else {
+        res.send({
+          status:1,
+          data: info
+        })
+      }
+    } catch(err) {
+      res.send({
+				status: 0,
+				type: 'GET_ADMIN_INFO_FAILED',
+				message: '获取管理员信息失败'
+			})
+    }
   }
 }
 
